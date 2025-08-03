@@ -35,6 +35,16 @@ curl -X POST https://<worker>.workers.dev \
    wrangler secret put OPENAI_API_KEY
    wrangler deploy
    ```
+### Project Structure
+
+```
+├── src/index.ts          # Worker entry point
+├── migrations/0001_init.sql
+├── wrangler.jsonc        # D1 binding & env vars
+├── package.json          # deps: openai, zod, uuid
+└── README.md             # this file
+
+```
 
 ### Stack Overview
 
@@ -48,17 +58,6 @@ curl -X POST https://<worker>.workers.dev \
 
 ---
 
-### Project Structure
-
-```
-├── src/index.ts          # Worker entry point
-├── migrations/0001_init.sql
-├── wrangler.jsonc        # D1 binding & env vars
-├── package.json          # deps: openai, zod, uuid
-└── README.md             # this file
-```
-
----
 ### 3. Architecture Deep Dive
 
 #### 3.1 High-Level Blueprint
@@ -137,7 +136,17 @@ CREATE TABLE itineraries (
 | **Retry Logic** | Wrap OpenAI call in exponential backoff loop |
 | **Multi-Model** | Switch `model` field or add provider abstraction layer |
 
+#### 3.8 Architectural Choices
+
+| Decision | Rationale |
+|----------|-----------|
+| **D1 over Firestore** | Lower latency, zero egress, single-file SQL migrations |
+| **Async via `ctx.waitUntil`** | Instant 202 response while LLM runs |
+| **Zod validation** | Guarantees schema even if LLM drifts |
+| **Plain fetch to OpenAI** | Smaller bundle vs. `openai` SDK |
+
 This design ensures **low latency, high availability, and effortless scaling** while keeping the codebase < 200 lines.
+
 ### Setup Guide
 
 #### 1. Prerequisites
@@ -238,16 +247,7 @@ D1 Database:
 
 ---
 
-### Architectural Choices
 
-| Decision | Rationale |
-|----------|-----------|
-| **D1 over Firestore** | Lower latency, zero egress, single-file SQL migrations |
-| **Async via `ctx.waitUntil`** | Instant 202 response while LLM runs |
-| **Zod validation** | Guarantees schema even if LLM drifts |
-| **Plain fetch to OpenAI** | Smaller bundle vs. `openai` SDK |
-
----
 
 ### Prompt Design
 
