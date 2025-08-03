@@ -224,10 +224,6 @@ CREATE TABLE itineraries (
 | **Zod validation** | Guarantees schema even if LLM drifts |
 | **Plain fetch to OpenAI** | Smaller bundle vs. `openai` SDK |
 
-
-Yes—prompt design is a **first-class architectural concern** for any LLM-driven system.  
-We surface it **once** inside the Architecture section, then link to a concise **Prompt Engineering Deep-Dive** subsection so readers can find it quickly without cluttering the flow.
-
 ---
 
 
@@ -245,35 +241,6 @@ Return **only** valid JSON adhering to:
 { "itinerary": [ { "day": 1, "theme": "...", "activities": [ { "time": "Morning|Afternoon|Evening|Night", "description": "...", "location": "..." } ] } ] }.  
 No markdown, no explanations.
 ```
-
-### 5. API Reference
-
-#### `POST /`
-Create a new itinerary job.
-
-**Request**  
-```json
-{
-  "destination": "Barcelona, Spain",
-  "durationDays": 4
-}
-```
-
-**Response**  
-```json
-{ "jobId": "a1b2c3d4-e5f6-7890-abcd-1234567890ab" }
-```
-
-#### `GET /status/:jobId`
-Check status & retrieve itinerary once ready.
-
-**Response examples**
-
-| Status | Body |
-|--------|------|
-| **processing** | `{"status":"processing"}` |
-| **completed** | `{"status":"completed","itinerary":[...]}` |
-| **failed** | `{"status":"failed","error":"LLM timeout"}` |
 
 
 ### Example Workflows
