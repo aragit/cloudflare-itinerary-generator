@@ -15,7 +15,7 @@ Key experience:
 ## 1. Quick Start Command Sheet
  ```bash
 # Clone & install
-git clone https://github.com/<you>/stak-itinerary-generator.git
+git clone https://github.com/aragit/stak-itinerary-generator.git
 cd stak-itinerary-generator
 npm install
 
@@ -32,7 +32,7 @@ curl -X POST https://<worker>.workers.dev \
 
    ```
 
-**A cURL example of how to call your API endpoint**
+**A cURL example of how to call  API endpoint**
 ```bash
 curl -X POST "https://stak2.stak-d1-demo.workers.dev/" \
      -H "Content-Type: application/json" \
@@ -69,15 +69,15 @@ Follow these exact steps to deploy and run the API from a fresh clone.
 
 
 
-- Node 20+ | `curl -fsSL https://fnm.vercel.app/install \| bash` |
-- Wrangler CLI | `npm i -g wrangler` |
+- Node 20+ | `curl -fsSL https://fnm.vercel.app/install \| bash` 
+- Wrangler CLI | `npm i -g wrangler` 
 
 
 
 ### 2.2 Clone & Install
 
 ```bash
-git clone https://github.com/<you>/stak-itinerary-generator.git
+git clone https://github.com/aragit/stak-itinerary-generator.git
 cd stak-itinerary-generator
 npm install
 ```
@@ -335,6 +335,6 @@ D1 Database:
 
 ## License
 
-MIT © 2025 — Your Name
+MIT © 2025 
 
 
