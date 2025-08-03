@@ -217,6 +217,27 @@ CREATE TABLE itineraries (
 | **Plain fetch to OpenAI** | Smaller bundle vs. `openai` SDK |
 
 
+Yes—prompt design is a **first-class architectural concern** for any LLM-driven system.  
+We surface it **once** inside the Architecture section, then link to a concise **Prompt Engineering Deep-Dive** subsection so readers can find it quickly without cluttering the flow.
+
+---
+
+
+### 4 Prompt Engineering 
+
+**Design Principles**  
+- **Single-purpose prompt**: one-shot JSON generation, zero conversational text.  
+- **Schema enforcement**: inline JSON schema + `response_format: "json_object"` guarantees deterministic shape.  
+- **Token efficiency**: minimal instructions (~120 tokens) reduce cost and latency.  
+
+**Production Prompt Template**  
+```text
+Generate a detailed JSON travel itinerary for a 3-day trip to Tokyo.  
+Return **only** valid JSON adhering to:  
+{ "itinerary": [ { "day": 1, "theme": "...", "activities": [ { "time": "Morning|Afternoon|Evening|Night", "description": "...", "location": "..." } ] } ] }.  
+No markdown, no explanations.
+```
+
 ### API Reference
 
 #### `POST /`
