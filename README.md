@@ -1,8 +1,14 @@
 
 # AI-Powered Itinerary Generator  
 > Cloudflare Worker + D1 SQLite + OpenAI GPT-4o-mini
+> A lightweight, serverless API that creates structured travel itineraries **asynchronously** with a single HTTP call.
 
-A lightweight, serverless API that creates structured travel itineraries **asynchronously** with a single HTTP call.
+The AI-Powered Itinerary Generator is a serverless micro-service that turns two pieces of user input—destination and trip length—into a rich, structured travel plan in seconds.
+Key experience:
+- Instant feedback: caller receives a unique tracking ID (jobId) immediately.
+- Silent processing: GPT-4o-mini composes day-by-day itineraries in the background.
+- Stateless & durable: results are persisted in Cloudflare D1 (serverless SQLite).
+- Zero infrastructure: scales from 1 to 1 000 000 calls without extra config.
 
 ---
 
