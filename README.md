@@ -146,7 +146,7 @@ wrangler d1 execute stak_itinerary --command="SELECT * FROM itineraries ORDER BY
 
 ### Cloudflare Dashboard Screenshots
 
-Place these images **after the Setup Guide** to visually confirm configuration.
+`![Workers Overview](./docs/workers-overview.png)`  
 
 | Section | Where to find | Screenshot filename |
 |---------|---------------|----------------------|
