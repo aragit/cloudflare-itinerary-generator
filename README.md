@@ -46,7 +46,7 @@ Follow these exact steps to deploy and run the API from a fresh clone.
 
 ---
 
-### 2. Clone & Install
+#### 2. Clone & Install
 
 ```bash
 git clone https://github.com/<you>/stak-itinerary-generator.git
@@ -56,7 +56,7 @@ npm install
 
 ---
 
-### 3. Configure Secrets
+#### 3. Configure Secrets
 
 ```bash
 wrangler login                    # authenticate once
@@ -66,7 +66,7 @@ wrangler secret put OPENAI_API_KEY
 
 ---
 
-### 4. Verify D1 Database
+#### 4. Verify D1 Database
 
 ```bash
 wrangler d1 list
@@ -82,7 +82,7 @@ wrangler d1 execute stak_itinerary --file=migrations/0001_init.sql
 
 ---
 
-### 5. Deploy
+#### 5. Deploy
 
 ```bash
 wrangler deploy
@@ -96,7 +96,7 @@ https://<unique-subdomain>.workers.dev
 
 ---
 
-### 6. Quick Smoke Test
+#### 6. Quick Smoke Test
 
 ```bash
 curl -X POST https://<unique-subdomain>.workers.dev \
@@ -118,7 +118,7 @@ wrangler d1 execute stak_itinerary --command="SELECT * FROM itineraries WHERE jo
 
 ---
 
-### 7. Local Development (optional)
+#### 7. Local Development (optional)
 
 ```bash
 wrangler dev
@@ -127,7 +127,7 @@ wrangler dev
 
 ---
 
-### 8. Continuous Deployment (optional)
+#### 8. Continuous Deployment (optional)
 
 Add the following to your CI:
 
