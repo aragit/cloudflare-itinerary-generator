@@ -147,18 +147,11 @@ wrangler d1 execute stak_itinerary --command="SELECT * FROM itineraries ORDER BY
 ### Cloudflare Dashboard Screenshots
 Metrics: 
 ![Workers Overview](./docs/metrics.png)
+
+
 D1 Database:
 ![d1 Overview](./docs/D1.png)
 
-| Section | Where to find | Screenshot filename |
-|---------|---------------|----------------------|
-| **Workers Overview** | Workers & Pages → Your Worker | `workers-overview.png` |
-| **D1 Database Details** | D1 → stak_itinerary → Tables | `d1-tables.png` |
-| **Secrets** | Worker → Settings → Variables | `secrets.png` |
-
-> **Add markdown links**  
-> `![Workers Overview](./docs/workers-overview.png)`  
-> `![D1 Tables](./docs/d1-tables.png)`
 
 ---
 
