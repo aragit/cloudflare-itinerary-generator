@@ -12,28 +12,29 @@ Key experience:
 
 ---
 
-## One-Minute Quick Start
+## Quick Start Command Sheet
+ ```bash
+# Clone & install
+git clone https://github.com/<you>/stak-itinerary-generator.git
+cd stak-itinerary-generator
+npm install
 
+# Secrets
+wrangler secret put OPENAI_API_KEY
+
+# Deploy
+wrangler deploy
+
+# Test
+curl -X POST https://<worker>.workers.dev \
+  -H "Content-Type: application/json" \
+  -d '{"destination":"Barcelona","durationDays":4}'
 1. **Deploy**  
    ```bash
    npm install
    wrangler secret put OPENAI_API_KEY
    wrangler deploy
    ```
-
-2. **Call**  
-   ```bash
-   curl -X POST https://<your-worker>.workers.dev \
-     -H "Content-Type: application/json" \
-     -d '{"destination":"Kyoto, Japan","durationDays":3}'
-   ```
-
-3. **Poll**  
-   ```bash
-   curl https://<your-worker>.workers.dev/status/<jobId>
-   ```
-
----
 
 ## Stack Overview
 
@@ -192,15 +193,6 @@ npm run dev       # local dev server
 
 ---
 
-## Optional Extras
-
-| Bonus | Snippet |
-|-------|---------|
-| **Retry w/ backoff** | `for (let i=0; i<3; i++){ try {...} catch { await sleep(2**i*1000) } }` |
-| **Svelte UI** | `npm create svelte@latest ui` → deploy via Pages |
-| **Firestore swap** | Replace D1 calls with Firebase Admin SDK |
-
----
 
 ## Security Notes
 
@@ -214,6 +206,4 @@ npm run dev       # local dev server
 
 MIT © 2025 — Your Name
 
----
 
-Ready to copy-paste!
