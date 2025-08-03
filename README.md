@@ -32,7 +32,7 @@ curl -X POST https://<worker>.workers.dev \
 
    ```
 
-A cURL example of how to call your API endpoint
+**A cURL example of how to call your API endpoint**
 ```bash
 curl -X POST "https://stak2.stak-d1-demo.workers.dev/" \
      -H "Content-Type: application/json" \
@@ -42,6 +42,7 @@ curl -X POST "https://stak2.stak-d1-demo.workers.dev/" \
 ```text
 {"jobId":"f436b6f3-e109-4370-a0d6-8279f78f1e4f"}
 ```
+and: 
 ```bash
 npx wrangler d1 execute stak_itinerary --remote --command "SELECT * FROM itineraries WHERE jobId = 'f436b6f3-e109-4370-a0d6-8279f78f1e4f';"
 ```
