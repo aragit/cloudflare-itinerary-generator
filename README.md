@@ -29,22 +29,119 @@ wrangler deploy
 curl -X POST https://<worker>.workers.dev \
   -H "Content-Type: application/json" \
   -d '{"destination":"Barcelona","durationDays":4}'
-1. **Deploy**  
-   ```bash
-   npm install
-   wrangler secret put OPENAI_API_KEY
-   wrangler deploy
+
    ```
-### Project Structure
+### Setup Guide
+
+Follow these exact steps to deploy and run the API from a fresh clone.
+
+---
+
+#### 1. Prerequisites
+
+
+
+- Node 20+ | `curl -fsSL https://fnm.vercel.app/install \| bash` |
+- Wrangler CLI | `npm i -g wrangler` |
+
+---
+
+### 2. Clone & Install
+
+```bash
+git clone https://github.com/<you>/stak-itinerary-generator.git
+cd stak-itinerary-generator
+npm install
+```
+
+---
+
+### 3. Configure Secrets
+
+```bash
+wrangler login                    # authenticate once
+wrangler secret put OPENAI_API_KEY
+# paste your OpenAI key when prompted
+```
+
+---
+
+### 4. Verify D1 Database
+
+```bash
+wrangler d1 list
+# ensure `stak_itinerary` appears with correct ID
+```
+
+If missing:
+
+```bash
+wrangler d1 create stak_itinerary
+wrangler d1 execute stak_itinerary --file=migrations/0001_init.sql
+```
+
+---
+
+### 5. Deploy
+
+```bash
+wrangler deploy
+```
+
+The CLI prints the live URL:
 
 ```
-├── src/index.ts          # Worker entry point
-├── migrations/0001_init.sql
-├── wrangler.jsonc        # D1 binding & env vars
-├── package.json          # deps: openai, zod, uuid
-└── README.md             # this file
-
+https://<unique-subdomain>.workers.dev
 ```
+
+---
+
+### 6. Quick Smoke Test
+
+```bash
+curl -X POST https://<unique-subdomain>.workers.dev \
+  -H "Content-Type: application/json" \
+  -d '{"destination":"Lisbon, Portugal","durationDays":3}'
+```
+
+Expect:
+
+```json
+{ "jobId": "a1b2c3d4-..." }
+```
+
+After ~10 s:
+
+```bash
+wrangler d1 execute stak_itinerary --command="SELECT * FROM itineraries WHERE jobId='a1b2c3d4-...'"
+```
+
+---
+
+### 7. Local Development (optional)
+
+```bash
+wrangler dev
+# visit http://localhost:8787
+```
+
+---
+
+### 8. Continuous Deployment (optional)
+
+Add the following to your CI:
+
+```yaml
+- name: Deploy
+  run: |
+    npm ci
+    wrangler deploy
+  env:
+    CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+```
+
+You’re live!
+
 
 ### Stack Overview
 
