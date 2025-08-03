@@ -201,21 +201,7 @@ CREATE TABLE itineraries (
 | **CORS** | Worker returns `Access-Control-Allow-Origin: *` for browser use |
 | **Data Residency** | D1 shards remain in chosen region (default: US) |
 
-### 3.6 Observability & Debugging
-
-- **Logs**: `wrangler tail` streams live Worker logs.  
-- **Metrics**: D1 query latency & row counts visible in Cloudflare Dashboard → D1 → Metrics.  
-- **Alerts**: Custom Webhooks via Workers Analytics Engine (optional).
-
-### 3.7 Extensibility Hooks
-
-| Extension | Plug-in Path |
-|---|---|
-| **Frontend** | Add `GET /status/:jobId` + Cloudflare Pages Svelte app |
-| **Retry Logic** | Wrap OpenAI call in exponential backoff loop |
-| **Multi-Model** | Switch `model` field or add provider abstraction layer |
-
-### 3.8 Architectural Choices
+### 3.6 Architectural Choices
 
 | Decision | Rationale |
 |----------|-----------|
