@@ -59,7 +59,85 @@ curl -X POST https://<worker>.workers.dev \
 ```
 
 ---
+### 3. Architecture Deep Dive
 
+#### 3.1 High-Level Blueprint
+The solution is a **three-tier, edge-native architecture** comprising:
+
+1. **Edge Compute Layer** – Cloudflare Worker executing TypeScript on V8 isolates  
+2. **State Layer** – Cloudflare D1 (serverless SQLite) for durable, relational storage  
+3. **Intelligence Layer** – OpenAI GPT-4o-mini via REST for structured generation
+
+All tiers are co-located on Cloudflare’s global edge, eliminating cold starts and egress charges.
+
+#### 3.2 Component Specification
+
+| Component | Technology | Regionality | SLA | Observability |
+|---|---|---|---|---|
+| **Ingress** | Cloudflare Worker | 300+ PoPs | 99.9 % | Logs → Workers Analytics |
+| **Persistence** | D1 SQLite | Same PoP | 99.9 % | Query metrics in CF Dash |
+| **LLM** | OpenAI `gpt-4o-mini` | US/EU clusters | 99.9 % | Token usage via OpenAI API |
+
+#### 3.3 Data Flow Sequence
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant C as Client
+    participant W as Worker (Edge)
+    participant D as D1
+    participant O as OpenAI
+
+    C->>W: POST / {destination, durationDays}
+    W->>D: INSERT (jobId, processing, ...)
+    W-->>C: 202 {jobId}
+    W->>O: HTTPS /v1/chat/completions (model: gpt-4o-mini)
+    O-->>W: JSON itinerary
+    W->>D: UPDATE (completed + itinerary or failed + error)
+```
+
+#### 3.4 Storage Schema (D1)
+
+```sql
+CREATE TABLE itineraries (
+  jobId         TEXT PRIMARY KEY,
+  status        TEXT CHECK(status IN ('processing','completed','failed')) NOT NULL,
+  destination   TEXT NOT NULL,
+  durationDays  INTEGER NOT NULL,
+  itinerary     TEXT,                 -- JSON
+  error         TEXT,
+  createdAt     INTEGER,              -- epoch ms
+  completedAt   INTEGER
+);
+```
+
+- **Primary key** enforces idempotency.  
+- **CHECK constraint** guarantees state-machine correctness.  
+
+#### 3.5 Security & Compliance
+
+| Control | Implementation |
+|---|---|
+| **Secrets** | `wrangler secret put OPENAI_API_KEY` – never in repo |
+| **Rate Limiting** | Worker CPU 30 s per invocation; OpenAI token budget |
+| **CORS** | Worker returns `Access-Control-Allow-Origin: *` for browser use |
+| **Data Residency** | D1 shards remain in chosen region (default: US) |
+
+#### 3.6 Observability & Debugging
+
+- **Logs**: `wrangler tail` streams live Worker logs.  
+- **Metrics**: D1 query latency & row counts visible in Cloudflare Dashboard → D1 → Metrics.  
+- **Alerts**: Custom Webhooks via Workers Analytics Engine (optional).
+
+#### 3.7 Extensibility Hooks
+
+| Extension | Plug-in Path |
+|---|---|
+| **Frontend** | Add `GET /status/:jobId` + Cloudflare Pages Svelte app |
+| **Retry Logic** | Wrap OpenAI call in exponential backoff loop |
+| **Multi-Model** | Switch `model` field or add provider abstraction layer |
+
+This design ensures **low latency, high availability, and effortless scaling** while keeping the codebase < 200 lines.
 ### Setup Guide
 
 #### 1. Prerequisites
