@@ -12,7 +12,7 @@ Key experience:
 
 ---
 
-## Quick Start Command Sheet
+### Quick Start Command Sheet
  ```bash
 # Clone & install
 git clone https://github.com/<you>/stak-itinerary-generator.git
@@ -36,7 +36,7 @@ curl -X POST https://<worker>.workers.dev \
    wrangler deploy
    ```
 
-## Stack Overview
+### Stack Overview
 
 | Component        | Choice & Reason |
 |------------------|-----------------|
@@ -48,7 +48,7 @@ curl -X POST https://<worker>.workers.dev \
 
 ---
 
-## Project Structure
+### Project Structure
 
 ```
 ├── src/index.ts          # Worker entry point
@@ -60,16 +60,16 @@ curl -X POST https://<worker>.workers.dev \
 
 ---
 
-## Setup Guide
+### Setup Guide
 
-### 1. Prerequisites
+#### 1. Prerequisites
 
 | Tool | Install |
 |------|---------|
 | Node 20+ | `curl -fsSL https://fnm.vercel.app/install | bash` |
 | Wrangler CLI | `npm i -g wrangler` |
 
-### 2. Clone & Install
+#### 2. Clone & Install
 
 ```bash
 git clone https://github.com/<you>/stak-itinerary-generator.git
@@ -77,7 +77,7 @@ cd stak-itinerary-generator
 npm install
 ```
 
-### 3. Bind Secrets
+#### 3. Bind Secrets
 
 ```bash
 wrangler login
@@ -85,7 +85,7 @@ wrangler secret put OPENAI_API_KEY       # your OpenAI key
 # No other secrets needed (D1 keys are automatic)
 ```
 
-### 4. Deploy
+#### 4. Deploy
 
 ```bash
 wrangler deploy
@@ -93,9 +93,9 @@ wrangler deploy
 
 ---
 
-## API Reference
+### API Reference
 
-### `POST /`
+#### `POST /`
 Create a new itinerary job.
 
 **Request**  
@@ -111,7 +111,7 @@ Create a new itinerary job.
 { "jobId": "a1b2c3d4-e5f6-7890-abcd-1234567890ab" }
 ```
 
-### `GET /status/:jobId`
+#### `GET /status/:jobId`
 Check status & retrieve itinerary once ready.
 
 **Response examples**
@@ -124,9 +124,9 @@ Check status & retrieve itinerary once ready.
 
 ---
 
-## Example Workflows
+### Example Workflows
 
-### Happy Path
+#### Happy Path
 ```bash
 # 1. Submit
 JOB=$(curl -s -X POST https://stak-d1-1754217065.workers.dev \
@@ -137,14 +137,14 @@ JOB=$(curl -s -X POST https://stak-d1-1754217065.workers.dev \
 curl https://stak-d1-1754217065.workers.dev/status/${JOB}
 ```
 
-### Debug Database
+#### Debug Database
 ```bash
 wrangler d1 execute stak_itinerary --command="SELECT * FROM itineraries ORDER BY created_at DESC LIMIT 1"
 ```
 
 ---
 
-## Cloudflare Dashboard Screenshots
+### Cloudflare Dashboard Screenshots
 
 Place these images **after the Setup Guide** to visually confirm configuration.
 
@@ -160,7 +160,7 @@ Place these images **after the Setup Guide** to visually confirm configuration.
 
 ---
 
-## Architectural Choices
+### Architectural Choices
 
 | Decision | Rationale |
 |----------|-----------|
@@ -171,7 +171,7 @@ Place these images **after the Setup Guide** to visually confirm configuration.
 
 ---
 
-## Prompt Design
+### Prompt Design
 
 **System prompt sent to GPT-4o-mini** (truncated):
 
@@ -179,14 +179,14 @@ Place these images **after the Setup Guide** to visually confirm configuration.
 
 ---
 
-## Testing
+### Testing
 
-### Unit
+#### Unit
 ```bash
 npm test          # vitest (if tests added)
 ```
 
-### Manual
+#### Manual
 ```bash
 npm run dev       # local dev server
 ```
@@ -194,7 +194,7 @@ npm run dev       # local dev server
 ---
 
 
-## Security Notes
+### Security Notes
 
 - **Secrets**: Never commit `OPENAI_API_KEY`; stored via Wrangler Secrets.  
 - **D1**: Uses worker-bound identity; no extra key exposed.  
