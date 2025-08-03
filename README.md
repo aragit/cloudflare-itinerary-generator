@@ -10,7 +10,7 @@ Key experience:
 - Stateless & durable: results are persisted in Cloudflare D1 (serverless SQLite).
 - Zero infrastructure: scales from 1 to 1 000 000 calls without extra config.
 
----
+
 
 ## 1. Quick Start Command Sheet
  ```bash
@@ -129,12 +129,6 @@ Add the following to your CI:
 
  ***You’re live!***
 
-## 🎯 API Reference
-
-`POST /` – Create itinerary  
-`GET  /status/<jobId>` – Retrieve result  
-See [Quick Start](#quick-start) for exact curl commands.
-
 ## 3. Architecture Deep Dive
 
 ### 3.1 High-Level Blueprint
@@ -229,7 +223,7 @@ We surface it **once** inside the Architecture section, then link to a concise *
 ---
 
 
-### 4 Prompt Engineering 
+### 4. Prompt Engineering 
 
 **Design Principles**  
 - **Single-purpose prompt**: one-shot JSON generation, zero conversational text.  
@@ -244,7 +238,7 @@ Return **only** valid JSON adhering to:
 No markdown, no explanations.
 ```
 
-### API Reference
+### 5. API Reference
 
 #### `POST /`
 Create a new itinerary job.
@@ -307,39 +301,6 @@ Metrics:
 D1 Database:
 ![d1 Overview](./docs/D1.png)
 
-
----
-
-
-
-### Prompt Design
-
-**System prompt sent to GPT-4o-mini** (truncated):
-
-> “You are an expert travel planner… return ONLY valid JSON … { schema } … no markdown.”
-
----
-
-### Testing
-
-#### Unit
-```bash
-npm test          # vitest (if tests added)
-```
-
-#### Manual
-```bash
-npm run dev       # local dev server
-```
-
----
-
-
-### Security Notes
-
-- **Secrets**: Never commit `OPENAI_API_KEY`; stored via Wrangler Secrets.  
-- **D1**: Uses worker-bound identity; no extra key exposed.  
-- **CORS**: Add `Access-Control-Allow-Origin` header for browser use.
 
 ---
 
