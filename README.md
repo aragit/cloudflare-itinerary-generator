@@ -12,7 +12,7 @@ Key experience:
 
 ---
 
-### Quick Start Command Sheet
+## 1. Quick Start Command Sheet
  ```bash
 # Clone & install
 git clone https://github.com/<you>/stak-itinerary-generator.git
@@ -31,22 +31,21 @@ curl -X POST https://<worker>.workers.dev \
   -d '{"destination":"Barcelona","durationDays":4}'
 
    ```
-### Setup Guide
+## 2. Setup Guide
 
 Follow these exact steps to deploy and run the API from a fresh clone.
 
----
 
-#### 1. Prerequisites
+### 2.1 Prerequisites
 
 
 
 - Node 20+ | `curl -fsSL https://fnm.vercel.app/install \| bash` |
 - Wrangler CLI | `npm i -g wrangler` |
 
----
 
-#### 2. Clone & Install
+
+### 2.2 Clone & Install
 
 ```bash
 git clone https://github.com/<you>/stak-itinerary-generator.git
@@ -54,9 +53,7 @@ cd stak-itinerary-generator
 npm install
 ```
 
----
-
-#### 3. Configure Secrets
+### 2.3 Configure Secrets
 
 ```bash
 wrangler login                    # authenticate once
@@ -64,9 +61,7 @@ wrangler secret put OPENAI_API_KEY
 # paste your OpenAI key when prompted
 ```
 
----
-
-#### 4. Verify D1 Database
+### 2.4 Verify D1 Database
 
 ```bash
 wrangler d1 list
@@ -80,9 +75,7 @@ wrangler d1 create stak_itinerary
 wrangler d1 execute stak_itinerary --file=migrations/0001_init.sql
 ```
 
----
-
-#### 5. Deploy
+### 2.5 Deploy
 
 ```bash
 wrangler deploy
@@ -94,9 +87,7 @@ The CLI prints the live URL:
 https://<unique-subdomain>.workers.dev
 ```
 
----
-
-#### 6. Quick Smoke Test
+### 2.6 Quick Smoke Test
 
 ```bash
 curl -X POST https://<unique-subdomain>.workers.dev \
@@ -116,18 +107,14 @@ After ~10 s:
 wrangler d1 execute stak_itinerary --command="SELECT * FROM itineraries WHERE jobId='a1b2c3d4-...'"
 ```
 
----
-
-#### 7. Local Development (optional)
+### 2.7 Local Development (optional)
 
 ```bash
 wrangler dev
 # visit http://localhost:8787
 ```
 
----
-
-#### 8. Continuous Deployment (optional)
+### 2.8 Continuous Deployment (optional)
 
 Add the following to your CI:
 
@@ -140,24 +127,11 @@ Add the following to your CI:
     CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
 ```
 
-You’re live!
+ ***You’re live!***
 
+## 3. Architecture Deep Dive
 
-### Stack Overview
-
-| Component        | Choice & Reason |
-|------------------|-----------------|
-| **Runtime**      | Cloudflare Workers – zero-cold-start, global edge |
-| **Database**     | **D1 SQLite** (replaced Firestore) – serverless SQL with 1 ms latency |
-| **LLM**          | OpenAI GPT-4o-mini – low cost, JSON mode |
-| **Validation**   | Zod – runtime schema guard |
-| **Language**     | TypeScript – type-safe & auto-deploy |
-
----
-
-### 3. Architecture Deep Dive
-
-#### 3.1 High-Level Blueprint
+### 3.1 High-Level Blueprint
 The solution is a **three-tier, edge-native architecture** comprising:
 
 1. **Edge Compute Layer** – Cloudflare Worker executing TypeScript on V8 isolates  
@@ -166,7 +140,7 @@ The solution is a **three-tier, edge-native architecture** comprising:
 
 All tiers are co-located on Cloudflare’s global edge, eliminating cold starts and egress charges.
 
-#### 3.2 Component Specification
+### 3.2 Component Specification
 
 | Component | Technology | Regionality | SLA | Observability |
 |---|---|---|---|---|
@@ -174,7 +148,7 @@ All tiers are co-located on Cloudflare’s global edge, eliminating cold starts 
 | **Persistence** | D1 SQLite | Same PoP | 99.9 % | Query metrics in CF Dash |
 | **LLM** | OpenAI `gpt-4o-mini` | US/EU clusters | 99.9 % | Token usage via OpenAI API |
 
-#### 3.3 Data Flow Sequence
+### 3.3 Data Flow Sequence
 
 ```mermaid
 sequenceDiagram
@@ -192,7 +166,7 @@ sequenceDiagram
     W->>D: UPDATE (completed + itinerary or failed + error)
 ```
 
-#### 3.4 Storage Schema (D1)
+### 3.4 Storage Schema (D1)
 
 ```sql
 CREATE TABLE itineraries (
@@ -210,7 +184,7 @@ CREATE TABLE itineraries (
 - **Primary key** enforces idempotency.  
 - **CHECK constraint** guarantees state-machine correctness.  
 
-#### 3.5 Security & Compliance
+### 3.5 Security & Compliance
 
 | Control | Implementation |
 |---|---|
@@ -219,13 +193,13 @@ CREATE TABLE itineraries (
 | **CORS** | Worker returns `Access-Control-Allow-Origin: *` for browser use |
 | **Data Residency** | D1 shards remain in chosen region (default: US) |
 
-#### 3.6 Observability & Debugging
+### 3.6 Observability & Debugging
 
 - **Logs**: `wrangler tail` streams live Worker logs.  
 - **Metrics**: D1 query latency & row counts visible in Cloudflare Dashboard → D1 → Metrics.  
 - **Alerts**: Custom Webhooks via Workers Analytics Engine (optional).
 
-#### 3.7 Extensibility Hooks
+### 3.7 Extensibility Hooks
 
 | Extension | Plug-in Path |
 |---|---|
@@ -233,7 +207,7 @@ CREATE TABLE itineraries (
 | **Retry Logic** | Wrap OpenAI call in exponential backoff loop |
 | **Multi-Model** | Switch `model` field or add provider abstraction layer |
 
-#### 3.8 Architectural Choices
+### 3.8 Architectural Choices
 
 | Decision | Rationale |
 |----------|-----------|
@@ -241,8 +215,6 @@ CREATE TABLE itineraries (
 | **Async via `ctx.waitUntil`** | Instant 202 response while LLM runs |
 | **Zod validation** | Guarantees schema even if LLM drifts |
 | **Plain fetch to OpenAI** | Smaller bundle vs. `openai` SDK |
-
-This design ensures **low latency, high availability, and effortless scaling** while keeping the codebase < 200 lines.
 
 
 ### API Reference
