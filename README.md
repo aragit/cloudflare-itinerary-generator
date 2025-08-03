@@ -1,15 +1,12 @@
-Copy-paste the entire block below as-is into `README.md`.
 
----
-
-# 🌍 AI-Powered Itinerary Generator  
+# AI-Powered Itinerary Generator  
 > Cloudflare Worker + D1 SQLite + OpenAI GPT-4o-mini
 
 A lightweight, serverless API that creates structured travel itineraries **asynchronously** with a single HTTP call.
 
 ---
 
-## 🚀 One-Minute Quick Start
+## One-Minute Quick Start
 
 1. **Deploy**  
    ```bash
@@ -32,7 +29,7 @@ A lightweight, serverless API that creates structured travel itineraries **async
 
 ---
 
-## 📦 Stack Overview
+## Stack Overview
 
 | Component        | Choice & Reason |
 |------------------|-----------------|
@@ -44,7 +41,7 @@ A lightweight, serverless API that creates structured travel itineraries **async
 
 ---
 
-## 📁 Project Layout
+## Project Structure
 
 ```
 ├── src/index.ts          # Worker entry point
@@ -56,7 +53,7 @@ A lightweight, serverless API that creates structured travel itineraries **async
 
 ---
 
-## 🔧 Detailed Setup Guide
+## Setup Guide
 
 ### 1. Prerequisites
 
@@ -89,7 +86,7 @@ wrangler deploy
 
 ---
 
-## 🎯 API Reference
+## API Reference
 
 ### `POST /`
 Create a new itinerary job.
@@ -120,9 +117,9 @@ Check status & retrieve itinerary once ready.
 
 ---
 
-## 🧪 Example Workflows
+## Example Workflows
 
-### ✅ Happy Path
+### Happy Path
 ```bash
 # 1. Submit
 JOB=$(curl -s -X POST https://stak-d1-1754217065.workers.dev \
@@ -133,14 +130,14 @@ JOB=$(curl -s -X POST https://stak-d1-1754217065.workers.dev \
 curl https://stak-d1-1754217065.workers.dev/status/${JOB}
 ```
 
-### 🔍 Debug Database
+### Debug Database
 ```bash
 wrangler d1 execute stak_itinerary --command="SELECT * FROM itineraries ORDER BY created_at DESC LIMIT 1"
 ```
 
 ---
 
-## 🖼️ Cloudflare Dashboard Screenshots
+## Cloudflare Dashboard Screenshots
 
 Place these images **after the Setup Guide** to visually confirm configuration.
 
@@ -150,13 +147,13 @@ Place these images **after the Setup Guide** to visually confirm configuration.
 | **D1 Database Details** | D1 → stak_itinerary → Tables | `d1-tables.png` |
 | **Secrets** | Worker → Settings → Variables | `secrets.png` |
 
-> 📸 **Add markdown links**  
+> **Add markdown links**  
 > `![Workers Overview](./docs/workers-overview.png)`  
 > `![D1 Tables](./docs/d1-tables.png)`
 
 ---
 
-## 🧩 Architectural Choices
+## Architectural Choices
 
 | Decision | Rationale |
 |----------|-----------|
@@ -167,7 +164,7 @@ Place these images **after the Setup Guide** to visually confirm configuration.
 
 ---
 
-## 📝 Prompt Design
+## Prompt Design
 
 **System prompt sent to GPT-4o-mini** (truncated):
 
@@ -175,7 +172,7 @@ Place these images **after the Setup Guide** to visually confirm configuration.
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ### Unit
 ```bash
@@ -189,7 +186,7 @@ npm run dev       # local dev server
 
 ---
 
-## 🔄 Optional Extras
+## Optional Extras
 
 | Bonus | Snippet |
 |-------|---------|
@@ -199,7 +196,7 @@ npm run dev       # local dev server
 
 ---
 
-## 🔒 Security Notes
+## Security Notes
 
 - **Secrets**: Never commit `OPENAI_API_KEY`; stored via Wrangler Secrets.  
 - **D1**: Uses worker-bound identity; no extra key exposed.  
@@ -207,7 +204,7 @@ npm run dev       # local dev server
 
 ---
 
-## 📄 License
+## License
 
 MIT © 2025 — Your Name
 
