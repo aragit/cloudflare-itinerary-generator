@@ -244,38 +244,6 @@ CREATE TABLE itineraries (
 
 This design ensures **low latency, high availability, and effortless scaling** while keeping the codebase < 200 lines.
 
-### Setup Guide
-
-#### 1. Prerequisites
-
-| Tool | Install |
-|------|---------|
-| Node 20+ | `curl -fsSL https://fnm.vercel.app/install | bash` |
-| Wrangler CLI | `npm i -g wrangler` |
-
-#### 2. Clone & Install
-
-```bash
-git clone https://github.com/<you>/stak-itinerary-generator.git
-cd stak-itinerary-generator
-npm install
-```
-
-#### 3. Bind Secrets
-
-```bash
-wrangler login
-wrangler secret put OPENAI_API_KEY       # your OpenAI key
-# No other secrets needed (D1 keys are automatic)
-```
-
-#### 4. Deploy
-
-```bash
-wrangler deploy
-```
-
----
 
 ### API Reference
 
@@ -306,7 +274,6 @@ Check status & retrieve itinerary once ready.
 | **completed** | `{"status":"completed","itinerary":[...]}` |
 | **failed** | `{"status":"failed","error":"LLM timeout"}` |
 
----
 
 ### Example Workflows
 
