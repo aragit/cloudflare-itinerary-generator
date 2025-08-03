@@ -129,6 +129,12 @@ Add the following to your CI:
 
  ***You’re live!***
 
+## 🎯 API Reference
+
+`POST /` – Create itinerary  
+`GET  /status/<jobId>` – Retrieve result  
+See [Quick Start](#quick-start) for exact curl commands.
+
 ## 3. Architecture Deep Dive
 
 ### 3.1 High-Level Blueprint
