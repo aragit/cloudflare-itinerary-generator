@@ -31,6 +31,29 @@ curl -X POST https://<worker>.workers.dev \
   -d '{"destination":"Barcelona","durationDays":4}'
 
    ```
+
+A cURL example of how to call your API endpoint
+```bash
+curl -X POST "https://stak2.stak-d1-demo.workers.dev/" \
+     -H "Content-Type: application/json" \
+     -d '{"destination": "Paris, France", "durationDays": 3}'
+```
+output :
+{"jobId":"f436b6f3-e109-4370-a0d6-8279f78f1e4f"}
+```bash
+npx wrangler d1 execute stak_itinerary --remote --command "SELECT * FROM itineraries WHERE jobId = 'f436b6f3-e109-4370-a0d6-8279f78f1e4f';"
+```
+output:
+⛅️ wrangler 4.27.0
+───────────────────
+🌀 Executing on remote database stak_itinerary (952b5085-fc37-40b7-bbb7-ea022c625f2a):
+🌀 To execute on your local development database, remove the --remote flag from your wrangler command.
+🚣 Executed 1 command in 0.5443ms
+
+│ jobId                                │ status    │ destination   │ durationDays │ createdAt     │ completedAt   │ itinerary │ error │
+ f436b6f3-e109-4370-a0d6-8279f78f1e4f │ completed │ Paris, France │ 3            │ 1754253387720 │ 1754253398639 │ [{"day":1,"theme":"Cultural Exploration","activities":[{"time":"Morning","description":"Visit the iconic Eiffel Tower and take in panoramic views of Paris.","location":"Eiffel Tower, Champ de Mars, 5 Avenue Anatole France, 75007 Paris"},{"time":"Afternoon","description":"Explore the Louvre Museum and see the Mona Lisa.","location":"Louvre Museum, Rue de Rivoli, 75001 Paris"},{"time":"Evening","description":"Dinner at a traditional French bistro in the Montmartre district.","location":"Le Consulat, 18 Rue Norvins, 75018 Paris"}]},{"day":2,"theme":"Historical Insights","activities":[{"time":"Morning","description":"Take a guided tour of Notre-Dame Cathedral.","location":"Notre-Dame Cathedral, 6 Parvis Notre-Dame - Pl. Jean-Paul II, 75004 Paris"},{"time":"Afternoon","description":"Visit the historical Palace of Versailles and its gardens.","location":"Palace of Versailles, Place d'Armes, 78000 Versailles"},{"time":"Evening","description":"Enjoy a Seine River cruise to see Paris illuminated at night.","location":"Bateaux Parisiens, Port de la Bourdonnais, 75007 Paris"}]},{"day":3,"theme":"Local Experiences","activities":[{"time":"Morning","description":"Stroll through the charming streets of Le Marais and visit trendy boutiques.","location":"Le Marais, 75003 Paris"},{"time":"Afternoon","description":"Relax at a café and enjoy authentic French pastries.","location":"Café de Flore, 172 Boulevard Saint-Germain, 75006 Paris"},{"time":"Evening","description":"Attend a show at the Moulin Rouge.","location":"Moulin Rouge, 82 Boulevard de Clichy, 75018 Paris"}]}] │ null  │
+
+
 ## 2. Setup Guide
 
 Follow these exact steps to deploy and run the API from a fresh clone.
