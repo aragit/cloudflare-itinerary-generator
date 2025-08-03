@@ -136,27 +136,6 @@ After ~10 s:
 wrangler d1 execute stak_itinerary --command="SELECT * FROM itineraries WHERE jobId='a1b2c3d4-...'"
 ```
 
-### 2.7 Local Development (optional)
-
-```bash
-wrangler dev
-# visit http://localhost:8787
-```
-
-### 2.8 Continuous Deployment (optional)
-
-Add the following to your CI:
-
-```yaml
-- name: Deploy
-  run: |
-    npm ci
-    wrangler deploy
-  env:
-    CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-```
-
- ***You’re live!***
 
 ## 3. Architecture Deep Dive
 
