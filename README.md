@@ -147,7 +147,7 @@ wrangler d1 execute stak_itinerary --command="SELECT * FROM itineraries ORDER BY
 ### Cloudflare Dashboard Screenshots
 
 Workers overview: 
-![Workers Overview](./docs/metrics.png)
+![Workers Overview](./docs/workers.png)
 
 
 Metrics: 
