@@ -146,6 +146,7 @@ After submitting a request, the Worker returns a rich itinerary:
 ## Setup 
 
 **1. Prerequisites**
+
 Install **Node 20 or later**:
 
 ```bash
@@ -159,9 +160,7 @@ Install **Wrangler CLI**:
 npm i -g wrangler
 ```
 
-
-
-**Clone & Install**  
+**2. Clone & Install**  
 ```bash
 git clone https://github.com/aragit/stak-itinerary-generator.git
 cd stak-itinerary-generator
@@ -170,7 +169,7 @@ npm install
 
 ---
 
-**Log In to Cloudflare**  
+**3. Log In to Cloudflare**  
 ```bash
 wrangler login
 ```
@@ -178,7 +177,7 @@ A browser window will open—log in once.
 
 
 
-**Store the OpenAI Key**  
+**4. Store the OpenAI Key**  
 ```bash
 wrangler secret put OPENAI_API_KEY
 ```
@@ -186,7 +185,7 @@ Paste your OpenAI API key when prompted.
 
 
 
-**Verify or Create the D1 Database**  
+**5. Verify or Create the D1 Database**  
 ```bash
 wrangler d1 list
 ```
@@ -196,7 +195,7 @@ If `stak_itinerary` is **not listed**, create it:
 wrangler d1 create stak_itinerary
 ```
 
-**Apply the schema:**
+**6. Apply the schema:**
 
 ```bash
 wrangler d1 execute stak_itinerary --file=migrations/0001_init.sql
@@ -204,7 +203,7 @@ wrangler d1 execute stak_itinerary --file=migrations/0001_init.sql
 
 
 
-**Deploy**  
+**7. Deploy**  
 ```bash
 wrangler deploy
 ```
@@ -214,7 +213,7 @@ The CLI prints the live **Worker URL**:
 https://<unique-subdomain>.workers.dev
 ```
 
-**Quick Test**  
+**8. Quick Test**  
 ```bash
 curl -X POST https://<unique-subdomain>.workers.dev \
   -H "Content-Type: application/json" \
