@@ -12,7 +12,7 @@ Key experience:
 
 
 
-## 1. Quick Start Command Sheet
+## Quick Start Command Sheet
  ```bash
 # Clone & install
 git clone https://github.com/aragit/stak-itinerary-generator.git
@@ -60,25 +60,25 @@ npx wrangler d1 execute stak_itinerary --remote --command "SELECT * FROM itinera
 ```
 
 
-## Step-by-Step Setup Guide
+## Setup 
 
-### 1. Prerequisites  
-Install **Node 20 or later**:
+### Prerequisites  
+- Install **Node 20 or later**:
 
 ```bash
 curl -fsSL https://fnm.vercel.app/install | bash
 source ~/.bashrc          # reload shell
 ```
 
-Install **Wrangler CLI**:
+- Install **Wrangler CLI**:
 
 ```bash
 npm i -g wrangler
 ```
 
----
 
-### 2. Clone & Install  
+
+### Clone & Install  
 ```bash
 git clone https://github.com/aragit/stak-itinerary-generator.git
 cd stak-itinerary-generator
@@ -87,23 +87,23 @@ npm install
 
 ---
 
-### 3. Log In to Cloudflare  
+### Log In to Cloudflare  
 ```bash
 wrangler login
 ```
 A browser window will open—log in once.
 
----
 
-### 4. Store the OpenAI Key  
+
+### Store the OpenAI Key  
 ```bash
 wrangler secret put OPENAI_API_KEY
 ```
 Paste your **OpenAI API key** when prompted.
 
----
 
-### 5. Verify or Create the D1 Database  
+
+### Verify or Create the D1 Database  
 ```bash
 wrangler d1 list
 ```
@@ -119,9 +119,9 @@ Apply the schema:
 wrangler d1 execute stak_itinerary --file=migrations/0001_init.sql
 ```
 
----
 
-### 6. Deploy  
+
+### Deploy  
 ```bash
 wrangler deploy
 ```
@@ -131,9 +131,7 @@ The CLI prints the live **Worker URL**:
 https://<unique-subdomain>.workers.dev
 ```
 
----
-
-### 7. Quick Test  
+### Quick Test  
 ```bash
 curl -X POST https://<unique-subdomain>.workers.dev \
   -H "Content-Type: application/json" \
@@ -153,29 +151,7 @@ wrangler d1 execute stak_itinerary --remote \
   --command="SELECT * FROM itineraries WHERE jobId='a1b2c3d4-...';"
 ```
 
----
-
 Done! Your API is live and ready for production traffic.
-
-### 2.6 Quick Smoke Test
-
-```bash
-curl -X POST https://<unique-subdomain>.workers.dev \
-  -H "Content-Type: application/json" \
-  -d '{"destination":"Lisbon, Portugal","durationDays":3}'
-```
-
-Expect:
-
-```json
-{ "jobId": "a1b2c3d4-..." }
-```
-
-After ~10 s:
-
-```bash
-wrangler d1 execute stak_itinerary --command="SELECT * FROM itineraries WHERE jobId='a1b2c3d4-...'"
-```
 
 
 ## 3. Architecture Deep Dive
