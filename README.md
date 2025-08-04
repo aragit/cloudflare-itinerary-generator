@@ -27,7 +27,7 @@ This is the core value proposition of a serverless platform. The "1 to 1,000,000
 - Quick Start Command Sheet
 - How to Test the Live API
 - Setup Instructions
-- Architecture
+- [Architecture](#architecture)
 - Prompt Engineering
 - Cloudflare Dashboard
 
@@ -249,7 +249,7 @@ wrangler d1 execute stak_itinerary --remote \
 **Done! Your API is live and ready.**
 
 
-## **Architecture Deep Dive**
+## **Architecture**
 
 ### High-Level Blueprint
 The solution is a **three-tier, edge-native architecture** comprising:
