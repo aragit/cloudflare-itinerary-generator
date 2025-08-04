@@ -158,20 +158,12 @@ After submitting a request, the Worker returns a rich itinerary:
 
 ### **1. Prerequisites**
 
-Install **Node 20 or later**:
 
-```bash
-curl -fsSL https://fnm.vercel.app/install | bash
-source ~/.bashrc          # reload shell
-```
+- [Node.js](https://nodejs.org/en/)
 
-Install **Wrangler CLI**:
+- [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/install-and-update/)
 
-```bash
-npm i -g wrangler
-```
-
-### **2. Clone & Install**  
+### **2. Clone the Repository**  
 ```bash
 git clone https://github.com/aragit/stak-itinerary-generator.git
 cd stak-itinerary-generator
