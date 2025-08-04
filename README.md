@@ -42,10 +42,15 @@ curl -X POST "https://stak2.stak-d1-demo.workers.dev/" \
 ```text
 {"jobId":"f436b6f3-e109-4370-a0d6-8279f78f1e4f"}
 ```
-and: 
+Verify Results from the Database:
 ```bash
 npx wrangler d1 execute stak_itinerary --remote --command "SELECT * FROM itineraries WHERE jobId = 'f436b6f3-e109-4370-a0d6-8279f78f1e4f';"
 ```
+This command runs a raw SQL query against your live D1 database from the command line it 
+Retrieves the single itinerary record for the given job, showing status, JSON plan, timestamps, and any error.
+
+
+
 **output** :
 ```text
 ⛅️ wrangler 4.27.0
@@ -58,7 +63,86 @@ npx wrangler d1 execute stak_itinerary --remote --command "SELECT * FROM itinera
 
  f436b6f3-e109-4370-a0d6-8279f78f1e4f │ completed │ Paris, France │ 3            │ 1754253387720 │ 1754253398639 │ [{"day":1,"theme":"Cultural Exploration","activities":[{"time":"Morning","description":"Visit the iconic Eiffel Tower and take in panoramic views of Paris.","location":"Eiffel Tower, Champ de Mars, 5 Avenue Anatole France, 75007 Paris"},{"time":"Afternoon","description":"Explore the Louvre Museum and see the Mona Lisa.","location":"Louvre Museum, Rue de Rivoli, 75001 Paris"},{"time":"Evening","description":"Dinner at a traditional French bistro in the Montmartre district.","location":"Le Consulat, 18 Rue Norvins, 75018 Paris"}]},{"day":2,"theme":"Historical Insights","activities":[{"time":"Morning","description":"Take a guided tour of Notre-Dame Cathedral.","location":"Notre-Dame Cathedral, 6 Parvis Notre-Dame - Pl. Jean-Paul II, 75004 Paris"},{"time":"Afternoon","description":"Visit the historical Palace of Versailles and its gardens.","location":"Palace of Versailles, Place d'Armes, 78000 Versailles"},{"time":"Evening","description":"Enjoy a Seine River cruise to see Paris illuminated at night.","location":"Bateaux Parisiens, Port de la Bourdonnais, 75007 Paris"}]},{"day":3,"theme":"Local Experiences","activities":[{"time":"Morning","description":"Stroll through the charming streets of Le Marais and visit trendy boutiques.","location":"Le Marais, 75003 Paris"},{"time":"Afternoon","description":"Relax at a café and enjoy authentic French pastries.","location":"Café de Flore, 172 Boulevard Saint-Germain, 75006 Paris"},{"time":"Evening","description":"Attend a show at the Moulin Rouge.","location":"Moulin Rouge, 82 Boulevard de Clichy, 75018 Paris"}]}] │ null  │
 ```
+Sample Response:
 
+After submitting a request, the Worker returns a rich itinerary:
+
+```json
+{
+  "jobId": "f436b6f3-e109-4370-a0d6-8279f78f1e4f",
+  "status": "completed",
+  "destination": "Paris, France",
+  "durationDays": 3,
+  "createdAt": 1754253387720,
+  "completedAt": 1754253398639,
+  "itinerary": [
+    {
+      "day": 1,
+      "theme": "Cultural Exploration",
+      "activities": [
+        {
+          "time": "Morning",
+          "description": "Visit the iconic Eiffel Tower and take in panoramic views of Paris.",
+          "location": "Eiffel Tower, Champ de Mars, 75007 Paris"
+        },
+        {
+          "time": "Afternoon",
+          "description": "Explore the Louvre Museum and see the Mona Lisa.",
+          "location": "Louvre Museum, 75001 Paris"
+        },
+        {
+          "time": "Evening",
+          "description": "Dinner at a traditional French bistro in Montmartre.",
+          "location": "Le Consulat, 75018 Paris"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "theme": "Historical Insights",
+      "activities": [
+        {
+          "time": "Morning",
+          "description": "Guided tour of Notre-Dame Cathedral.",
+          "location": "Notre-Dame Cathedral, 75004 Paris"
+        },
+        {
+          "time": "Afternoon",
+          "description": "Visit the Palace of Versailles and its gardens.",
+          "location": "Palace of Versailles, 78000 Versailles"
+        },
+        {
+          "time": "Evening",
+          "description": "Seine River night cruise.",
+          "location": "Bateaux Parisiens, 75007 Paris"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "theme": "Local Experiences",
+      "activities": [
+        {
+          "time": "Morning",
+          "description": "Stroll through Le Marais boutiques.",
+          "location": "Le Marais, 75003 Paris"
+        },
+        {
+          "time": "Afternoon",
+          "description": "Café stop for French pastries.",
+          "location": "Café de Flore, 75006 Paris"
+        },
+        {
+          "time": "Evening",
+          "description": "Moulin Rouge show.",
+          "location": "Moulin Rouge, 75018 Paris"
+        }
+      ]
+    }
+  ],
+  "error": null
+}
+```
 
 ## Setup 
 
