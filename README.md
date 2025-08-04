@@ -60,61 +60,102 @@ npx wrangler d1 execute stak_itinerary --remote --command "SELECT * FROM itinera
 ```
 
 
-## 2. Setup Guide
+## Step-by-Step Setup Guide
 
-Follow these exact steps to deploy and run the API from a fresh clone.
+### 1. Prerequisites  
+Install **Node 20 or later**:
 
+```bash
+curl -fsSL https://fnm.vercel.app/install | bash
+source ~/.bashrc          # reload shell
+```
 
-### 2.1 Prerequisites
+Install **Wrangler CLI**:
 
+```bash
+npm i -g wrangler
+```
 
+---
 
-- Node 20+ | `curl -fsSL https://fnm.vercel.app/install \| bash` 
-- Wrangler CLI | `npm i -g wrangler` 
-
-
-
-### 2.2 Clone & Install
-
+### 2. Clone & Install  
 ```bash
 git clone https://github.com/aragit/stak-itinerary-generator.git
 cd stak-itinerary-generator
 npm install
 ```
 
-### 2.3 Configure Secrets
+---
 
+### 3. Log In to Cloudflare  
 ```bash
-wrangler login                    # authenticate once
-wrangler secret put OPENAI_API_KEY
-# paste your OpenAI key when prompted
+wrangler login
 ```
+A browser window will open—log in once.
 
-### 2.4 Verify D1 Database
+---
 
+### 4. Store the OpenAI Key  
+```bash
+wrangler secret put OPENAI_API_KEY
+```
+Paste your **OpenAI API key** when prompted.
+
+---
+
+### 5. Verify or Create the D1 Database  
 ```bash
 wrangler d1 list
-# ensure `stak_itinerary` appears with correct ID
 ```
-
-If missing:
+If `stak_itinerary` is **not listed**, create it:
 
 ```bash
 wrangler d1 create stak_itinerary
+```
+
+Apply the schema:
+
+```bash
 wrangler d1 execute stak_itinerary --file=migrations/0001_init.sql
 ```
 
-### 2.5 Deploy
+---
 
+### 6. Deploy  
 ```bash
 wrangler deploy
 ```
-
-The CLI prints the live URL:
+The CLI prints the live **Worker URL**:
 
 ```
 https://<unique-subdomain>.workers.dev
 ```
+
+---
+
+### 7. Quick Test  
+```bash
+curl -X POST https://<unique-subdomain>.workers.dev \
+  -H "Content-Type: application/json" \
+  -d '{"destination":"Paris","durationDays":3}'
+```
+
+You’ll receive:
+
+```json
+{"jobId":"a1b2c3d4-..."}
+```
+
+After ~10 seconds, verify the record:
+
+```bash
+wrangler d1 execute stak_itinerary --remote \
+  --command="SELECT * FROM itineraries WHERE jobId='a1b2c3d4-...';"
+```
+
+---
+
+Done! Your API is live and ready for production traffic.
 
 ### 2.6 Quick Smoke Test
 
