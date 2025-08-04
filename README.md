@@ -54,7 +54,7 @@ curl -X POST https://<worker>.workers.dev \
 
    ```
 
-### A cURL example of how to call  API endpoint
+**A cURL example of how to call  API endpoint:**
 ```bash
 curl -X POST "https://stak2.stak-d1-demo.workers.dev/" \
      -H "Content-Type: application/json" \
@@ -64,7 +64,7 @@ curl -X POST "https://stak2.stak-d1-demo.workers.dev/" \
 ```text
 {"jobId":"f436b6f3-e109-4370-a0d6-8279f78f1e4f"}
 ```
-Verify Results from the Database:
+**Verify Results from the Database:**
 ```bash
 npx wrangler d1 execute stak_itinerary --remote --command "SELECT * FROM itineraries WHERE jobId = 'f436b6f3-e109-4370-a0d6-8279f78f1e4f';"
 ```
@@ -73,7 +73,7 @@ Retrieves the single itinerary record for the given job, showing status, JSON pl
 
 
 
-**Sample Response** :
+**Response** :
 ```text
 ⛅️ wrangler 4.27.0
 ───────────────────
@@ -164,7 +164,7 @@ After submitting a request, the Worker returns a rich itinerary:
   "error": null
 }
 ```
-
+--- 
 ## Setup Instruction
 
 **1. Prerequisites**
@@ -249,7 +249,7 @@ wrangler d1 execute stak_itinerary --remote \
 
 Done! Your API is live and ready.
 
-
+---
 ## **Architecture**
 
 ### High-Level Blueprint
@@ -302,8 +302,6 @@ CREATE TABLE IF NOT EXISTS itineraries (
 );
 ```
 
-- **Primary key** enforces idempotency.  
-- **CHECK constraint** guarantees state-machine correctness.  
 
 ### Security & Compliance
 Here is a concise security & compliance summary for the readme: secrets are stored encrypted via wrangler, requests are rate-limited at the edge, cors is enabled for browser use, and data resides in our chosen d1 region:
@@ -341,7 +339,7 @@ Return **only** valid JSON adhering to:
 No markdown, no explanations.
 ```
 
-
+--- 
 ## **Cloudflare Dashboard**
 
 Workers overview: 
