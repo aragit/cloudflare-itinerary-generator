@@ -21,8 +21,9 @@ Key experience:
 - **Zero Configuration**: As the developer, you don't need to do anything to enable this scaling. You don't manage servers, load balancers, or virtual machines. The platform handles all of that automatically.
 
 This is the core value proposition of a serverless platform. The "1 to 1,000,000 calls" promise is essentially the platform's guarantee.
+---
 
-Table of Contents
+### Table of Contents
 - Quick Start Command Sheet
 - How to Test the Live API
 - Setup Instructions
