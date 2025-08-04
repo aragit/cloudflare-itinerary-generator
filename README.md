@@ -154,9 +154,9 @@ wrangler d1 execute stak_itinerary --remote \
 Done! Your API is live and ready for production traffic.
 
 
-## 3. Architecture Deep Dive
+## Architecture Deep Dive
 
-### 3.1 High-Level Blueprint
+### High-Level Blueprint
 The solution is a **three-tier, edge-native architecture** comprising:
 
 1. **Edge Compute Layer** – Cloudflare Worker executing TypeScript on V8 isolates  
@@ -165,7 +165,7 @@ The solution is a **three-tier, edge-native architecture** comprising:
 
 All tiers are co-located on Cloudflare’s global edge, eliminating cold starts and egress charges.
 
-### 3.2 Component Specification
+### Components Specification
 
 | Component | Technology | Regionality | SLA | Observability |
 |---|---|---|---|---|
@@ -173,7 +173,7 @@ All tiers are co-located on Cloudflare’s global edge, eliminating cold starts 
 | **Persistence** | D1 SQLite | Same PoP | 99.9 % | Query metrics in CF Dash |
 | **LLM** | OpenAI `gpt-4o-mini` | US/EU clusters | 99.9 % | Token usage via OpenAI API |
 
-### 3.3 Data Flow Sequence
+### Data Flow Sequence
 
 ```mermaid
 sequenceDiagram
@@ -191,7 +191,7 @@ sequenceDiagram
     W->>D: UPDATE (completed + itinerary or failed + error)
 ```
 
-### 3.4 Storage Schema (D1)
+### Storage Schema (D1)
 
 ```sql
 CREATE TABLE itineraries (
@@ -209,7 +209,7 @@ CREATE TABLE itineraries (
 - **Primary key** enforces idempotency.  
 - **CHECK constraint** guarantees state-machine correctness.  
 
-### 3.5 Security & Compliance
+### Security & Compliance
 
 | Control | Implementation |
 |---|---|
@@ -218,7 +218,7 @@ CREATE TABLE itineraries (
 | **CORS** | Worker returns `Access-Control-Allow-Origin: *` for browser use |
 | **Data Residency** | D1 shards remain in chosen region (default: US) |
 
-### 3.6 Architectural Choices
+### Architectural Choices
 
 | Decision | Rationale |
 |----------|-----------|
@@ -230,7 +230,7 @@ CREATE TABLE itineraries (
 ---
 
 
-### 4. Prompt Engineering 
+## Prompt Engineering 
 
 **Design Principles**  
 - **Single-purpose prompt**: one-shot JSON generation, zero conversational text.  
@@ -246,27 +246,7 @@ No markdown, no explanations.
 ```
 
 
-### Example Workflows
-
-#### Happy Path
-```bash
-# 1. Submit
-JOB=$(curl -s -X POST https://stak-d1-1754217065.workers.dev \
-  -H "Content-Type: application/json" \
-  -d '{"destination":"Tokyo","durationDays":3}' | jq -r .jobId)
-
-# 2. Wait ~10 s
-curl https://stak-d1-1754217065.workers.dev/status/${JOB}
-```
-
-#### Debug Database
-```bash
-wrangler d1 execute stak_itinerary --command="SELECT * FROM itineraries ORDER BY created_at DESC LIMIT 1"
-```
-
----
-
-### Cloudflare Dashboard Screenshots
+## Cloudflare Dashboard
 
 Workers overview: 
 ![Workers Overview](./docs/Workers.png)
