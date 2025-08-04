@@ -145,7 +145,7 @@ After submitting a request, the Worker returns a rich itinerary:
 
 ## Setup 
 
-**1. Prerequisites**
+### **1. Prerequisites**
 
 Install **Node 20 or later**:
 
@@ -160,16 +160,14 @@ Install **Wrangler CLI**:
 npm i -g wrangler
 ```
 
-**2. Clone & Install**  
+### **2. Clone & Install**  
 ```bash
 git clone https://github.com/aragit/stak-itinerary-generator.git
 cd stak-itinerary-generator
 npm install
 ```
 
----
-
-**3. Log In to Cloudflare**  
+### **3. Log In to Cloudflare**  
 ```bash
 wrangler login
 ```
@@ -177,7 +175,7 @@ A browser window will open—log in once.
 
 
 
-**4. Store the OpenAI Key**  
+### **4. Store the OpenAI Key**  
 ```bash
 wrangler secret put OPENAI_API_KEY
 ```
@@ -185,7 +183,7 @@ Paste your OpenAI API key when prompted.
 
 
 
-**5. Verify or Create the D1 Database**  
+### **5. Verify or Create the D1 Database**  
 ```bash
 wrangler d1 list
 ```
@@ -195,7 +193,7 @@ If `stak_itinerary` is **not listed**, create it:
 wrangler d1 create stak_itinerary
 ```
 
-**6. Apply the schema:**
+### **6. Apply the schema:**
 
 ```bash
 wrangler d1 execute stak_itinerary --file=migrations/0001_init.sql
@@ -203,7 +201,7 @@ wrangler d1 execute stak_itinerary --file=migrations/0001_init.sql
 
 
 
-**7. Deploy**  
+### **7. Deploy**  
 ```bash
 wrangler deploy
 ```
@@ -213,7 +211,7 @@ The CLI prints the live **Worker URL**:
 https://<unique-subdomain>.workers.dev
 ```
 
-**8. Quick Test**  
+### **8. Quick Test**  
 ```bash
 curl -X POST https://<unique-subdomain>.workers.dev \
   -H "Content-Type: application/json" \
@@ -236,7 +234,7 @@ wrangler d1 execute stak_itinerary --remote \
 **Done! Your API is live and ready.**
 
 
-## Architecture Deep Dive
+## **Architecture Deep Dive**
 
 ### High-Level Blueprint
 The solution is a **three-tier, edge-native architecture** comprising:
@@ -312,7 +310,7 @@ Following table shows a concise architectural overview:
 ---
 
 
-## Prompt Engineering 
+## **Prompt Engineering** 
 
 **Design Principles**  
 - **Single-purpose prompt**: one-shot JSON generation, zero conversational text.  
@@ -328,7 +326,7 @@ No markdown, no explanations.
 ```
 
 
-## Cloudflare Dashboard
+## **Cloudflare Dashboard**
 
 Workers overview: 
 ![Workers Overview](./docs/Workers.png)
@@ -342,10 +340,8 @@ D1 Database:
 ![d1 Overview](./docs/D1.png)
 
 
----
 
-## License
 
-MIT © 2025 
+
 
 
