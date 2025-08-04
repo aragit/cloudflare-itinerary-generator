@@ -5,18 +5,18 @@
 
 The AI-Powered Itinerary Generator is a serverless micro-service that turns two pieces of user input—destination and trip length—into a rich, structured travel plan in seconds.
 Key experience:
-- Instant feedback: caller receives a unique tracking ID (jobId) immediately.
-- Silent processing: GPT-4o-mini composes day-by-day itineraries in the background.
-- Stateless & durable: results are persisted in Cloudflare D1 (serverless SQLite).
-- Zero infrastructure: scales from 1 to 1 000 000 calls without extra config.
+- **Instant feedback**: caller receives a unique tracking ID (jobId) immediately.
+- **Silent processing**: GPT-4o-mini composes day-by-day itineraries in the background.
+- **Stateless & durable**: results are persisted in Cloudflare D1 (serverless SQLite).
+- **Zero infrastructure**: scales from 1 to 1 000 000 calls without extra config.
 
-**Architecture of Cloudflare Workers**
+#### **Architecture of Cloudflare Workers**
 
-- Elasticity: Cloudflare's platform is designed to automatically and instantly scale up the number of running Worker instances in response to traffic. It doesn't use a fixed number of servers. Instead, when a request arrives, if a worker instance is not available, Cloudflare's platform spins one up almost instantly.
+- **Elasticity**: Cloudflare's platform is designed to automatically and instantly scale up the number of running Worker instances in response to traffic. It doesn't use a fixed number of servers. Instead, when a request arrives, if a worker instance is not available, Cloudflare's platform spins one up almost instantly.
 
-- Global Distribution: Cloudflare's network has data centers in over 320 cities. This means that a user's request will be handled by the closest data center, not a central server farm. If traffic suddenly spikes in a specific region, Cloudflare simply spins up more worker instances in that region to handle the load.
+- **Global Distribution**: Cloudflare's network has data centers in over 320 cities. This means that a user's request will be handled by the closest data center, not a central server farm. If traffic suddenly spikes in a specific region, Cloudflare simply spins up more worker instances in that region to handle the load.
 
-- Zero Configuration: As the developer, you don't need to do anything to enable this scaling. You don't manage servers, load balancers, or virtual machines. The platform handles all of that automatically.
+- **Zero Configuration**: As the developer, you don't need to do anything to enable this scaling. You don't manage servers, load balancers, or virtual machines. The platform handles all of that automatically.
 
 This is the core value proposition of a serverless platform. The "1 to 1,000,000 calls" promise is essentially the platform's guarantee.
 
