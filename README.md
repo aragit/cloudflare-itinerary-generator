@@ -347,7 +347,7 @@ No markdown, no explanations.
 
 
 **Metrics:** 
-![Metrics Overview](./docs/metrics1.png)
+![Metrics Overview](./docs/metric1.png)
 
 ![Metrics Overview2](./docs/metrics2.png)
 
