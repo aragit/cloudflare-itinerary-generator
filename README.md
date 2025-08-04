@@ -163,7 +163,7 @@ After submitting a request, the Worker returns a rich itinerary:
 
 - [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/install-and-update/)
 
-### **2. Clone the Repository**  
+### **2. Clone the Repository:**  
 ```bash
 git clone https://github.com/aragit/stak-itinerary-generator.git
 cd stak-itinerary-generator
@@ -178,7 +178,8 @@ A browser window will open—log in once.
 
 
 
-### **4. Store the OpenAI Key**  
+### **4. Configure Secrets:**
+For deployment, you must set your OpenAI API key as a secret. This keeps your key secure.
 ```bash
 wrangler secret put OPENAI_API_KEY
 ```
@@ -186,7 +187,7 @@ Paste your OpenAI API key when prompted.
 
 
 
-### **5. Verify or Create the D1 Database**  
+### **5. Verify or Create the D1 Database:**  
 ```bash
 wrangler d1 list
 ```
@@ -196,15 +197,16 @@ If `stak_itinerary` is **not listed**, create it:
 wrangler d1 create stak_itinerary
 ```
 
-### **6. Apply the schema:**
-
+### **6. Setup Cloudflare D1:**
+This command applies the database schema, creating the itineraries table on your remote D1 database.
 ```bash
 wrangler d1 execute stak_itinerary --file=migrations/0001_init.sql
 ```
 
 
 
-### **7. Deploy**  
+### **7. Deploy:**  
+This will compile your Worker and deploy it to your Cloudflare account. The URL for your live API will be provided in the output.
 ```bash
 wrangler deploy
 ```
