@@ -60,7 +60,7 @@ curl -X POST "https://stak2.stak-d1-demo.workers.dev/" \
      -H "Content-Type: application/json" \
      -d '{"destination": "Paris, France", "durationDays": 3}'
 ```
-**Expected Output** :
+**Output** :
 ```text
 {"jobId":"f436b6f3-e109-4370-a0d6-8279f78f1e4f"}
 ```
@@ -73,7 +73,7 @@ Retrieves the single itinerary record for the given job, showing status, JSON pl
 
 
 
-**Expected Response** :
+**Sample Response** :
 ```text
 ⛅️ wrangler 4.27.0
 ───────────────────
@@ -167,21 +167,21 @@ After submitting a request, the Worker returns a rich itinerary:
 
 ## Setup Instruction
 
-### **1. Prerequisites**
+**1. Prerequisites**
 
 
 - [Node.js](https://nodejs.org/en/)
 
 - [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/install-and-update/)
 
-### **2. Clone the Repository:**  
+**2. Clone the Repository:**  
 ```bash
 git clone https://github.com/aragit/stak-itinerary-generator.git
 cd stak-itinerary-generator
 npm install
 ```
 
-### **3. Log In to Cloudflare**  
+**3. Log In to Cloudflare**  
 ```bash
 wrangler login
 ```
@@ -189,7 +189,7 @@ A browser window will open—log in once.
 
 
 
-### **4. Configure Secrets:**
+**4. Configure Secrets:**
 For deployment, you must set your OpenAI API key as a secret. This keeps your key secure.
 ```bash
 wrangler secret put OPENAI_API_KEY
@@ -198,7 +198,7 @@ Paste your OpenAI API key when prompted.
 
 
 
-### **5. Verify or Create the D1 Database:**  
+**5. Verify or Create the D1 Database:**  
 ```bash
 wrangler d1 list
 ```
@@ -208,7 +208,7 @@ If `stak_itinerary` is **not listed**, create it:
 wrangler d1 create stak_itinerary
 ```
 
-### **6. Setup Cloudflare D1:**
+**6. Setup Cloudflare D1:**
 This command applies the database schema, creating the itineraries table on your remote D1 database.
 ```bash
 wrangler d1 execute stak_itinerary --file=migrations/0001_init.sql
@@ -216,7 +216,7 @@ wrangler d1 execute stak_itinerary --file=migrations/0001_init.sql
 
 
 
-### **7. Deploy:**  
+**7. Deploy:**  
 This will compile your Worker and deploy it to your Cloudflare account. The URL for your live API will be provided in the output.
 ```bash
 wrangler deploy
@@ -227,7 +227,7 @@ The CLI prints the live **Worker URL**:
 https://<unique-subdomain>.workers.dev
 ```
 
-### **8. Quick Test**  
+**8. Quick Test**  
 ```bash
 curl -X POST https://<unique-subdomain>.workers.dev \
   -H "Content-Type: application/json" \
@@ -247,7 +247,7 @@ wrangler d1 execute stak_itinerary --remote \
   --command="SELECT * FROM itineraries WHERE jobId='a1b2c3d4-...';"
 ```
 
-**Done! Your API is live and ready.**
+Done! Your API is live and ready.
 
 
 ## **Architecture**
