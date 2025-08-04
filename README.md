@@ -235,7 +235,7 @@ wrangler d1 execute stak_itinerary --remote \
   --command="SELECT * FROM itineraries WHERE jobId='a1b2c3d4-...';"
 ```
 
-Done! Your API is live and ready for production traffic.
+Done! Your API is live and ready.
 
 
 ## Architecture Deep Dive
@@ -283,10 +283,10 @@ CREATE TABLE IF NOT EXISTS itineraries (
   status       TEXT CHECK (status IN ('processing', 'completed', 'failed')) NOT NULL,
   destination  TEXT NOT NULL,
   durationDays INTEGER NOT NULL,
-  itinerary    TEXT,                 -- JSON string
+  itinerary    TEXT,                 
   createdAt    INTEGER,
   completedAt  INTEGER,
-  error        TEXT                  -- ← here
+  error        TEXT                  
 );
 ```
 
@@ -294,7 +294,7 @@ CREATE TABLE IF NOT EXISTS itineraries (
 - **CHECK constraint** guarantees state-machine correctness.  
 
 ### Security & Compliance
-
+Here is a concise security & compliance summary for the readme: secrets are stored encrypted via wrangler, requests are rate-limited at the edge, cors is enabled for browser use, and data resides in our chosen d1 region:
 | Control | Implementation |
 |---|---|
 | **Secrets** | `wrangler secret put OPENAI_API_KEY` – never in repo |
@@ -303,10 +303,10 @@ CREATE TABLE IF NOT EXISTS itineraries (
 | **Data Residency** | D1 shards remain in chosen region (default: US) |
 
 ### Architectural Choices
-
+Following table shows a concise architectural overview:
 | Decision | Rationale |
 |----------|-----------|
-| **D1 over Firestore** | Lower latency, zero egress, single-file SQL migrations |
+| **D1 over Firestore** | D1 offers lower latency, zero egress fees, and single-file SQL migrations—all while running serverless on Cloudflare’s edge—making it simpler and cheaper than Firestore for relational data and JSON itineraries|
 | **Async via `ctx.waitUntil`** | Instant 202 response while LLM runs |
 | **Zod validation** | Guarantees schema even if LLM drifts |
 | **Plain fetch to OpenAI** | Smaller bundle vs. `openai` SDK |
