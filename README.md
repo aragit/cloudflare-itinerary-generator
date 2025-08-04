@@ -22,7 +22,16 @@ Key experience:
 
 This is the core value proposition of a serverless platform. The "1 to 1,000,000 calls" promise is essentially the platform's guarantee.
 
+Table of Contents
+- Quick Start Command Sheet
+- How to Test the Live API
+- Setup Instructions
+- Architecture
+- Prompt Engineering
+- Cloudflare Dashboard
 
+
+Technologies Used
 ## Quick Start Command Sheet
  ```bash
 # Clone & install
@@ -154,7 +163,7 @@ After submitting a request, the Worker returns a rich itinerary:
 }
 ```
 
-## Setup 
+## Setup Instruction
 
 ### **1. Prerequisites**
 
