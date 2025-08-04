@@ -33,7 +33,7 @@ This is the core value proposition of a serverless platform. The "1 to 1,000,000
 - [Cloudflare Dashboard](#cloudflare-dashboard)
 
 
-Technologies Used
+
 ## Quick Start Command Sheet
  ```bash
 # Clone & install
