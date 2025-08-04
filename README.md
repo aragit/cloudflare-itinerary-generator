@@ -342,15 +342,16 @@ No markdown, no explanations.
 --- 
 ## **Cloudflare Dashboard**
 
-Workers overview: 
+**Workers overview:** 
 ![Workers Overview](./docs/Workers.png)
 
 
-Metrics: 
+**Metrics:** 
 ![Metrics Overview](./docs/metrics1.png)
-![Metrics Overview](./docs/metrics2.png)
 
-D1 Database:
+![Metrics Overview2](./docs/metrics2.png)
+
+**D1 Database:**
 ![d1 Overview](./docs/D1.png)
 
 
