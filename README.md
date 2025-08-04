@@ -51,7 +51,7 @@ Retrieves the single itinerary record for the given job, showing status, JSON pl
 
 
 
-**output** :
+**Response** :
 ```text
 ⛅️ wrangler 4.27.0
 ───────────────────
@@ -63,7 +63,6 @@ Retrieves the single itinerary record for the given job, showing status, JSON pl
 
  f436b6f3-e109-4370-a0d6-8279f78f1e4f │ completed │ Paris, France │ 3            │ 1754253387720 │ 1754253398639 │ [{"day":1,"theme":"Cultural Exploration","activities":[{"time":"Morning","description":"Visit the iconic Eiffel Tower and take in panoramic views of Paris.","location":"Eiffel Tower, Champ de Mars, 5 Avenue Anatole France, 75007 Paris"},{"time":"Afternoon","description":"Explore the Louvre Museum and see the Mona Lisa.","location":"Louvre Museum, Rue de Rivoli, 75001 Paris"},{"time":"Evening","description":"Dinner at a traditional French bistro in the Montmartre district.","location":"Le Consulat, 18 Rue Norvins, 75018 Paris"}]},{"day":2,"theme":"Historical Insights","activities":[{"time":"Morning","description":"Take a guided tour of Notre-Dame Cathedral.","location":"Notre-Dame Cathedral, 6 Parvis Notre-Dame - Pl. Jean-Paul II, 75004 Paris"},{"time":"Afternoon","description":"Visit the historical Palace of Versailles and its gardens.","location":"Palace of Versailles, Place d'Armes, 78000 Versailles"},{"time":"Evening","description":"Enjoy a Seine River cruise to see Paris illuminated at night.","location":"Bateaux Parisiens, Port de la Bourdonnais, 75007 Paris"}]},{"day":3,"theme":"Local Experiences","activities":[{"time":"Morning","description":"Stroll through the charming streets of Le Marais and visit trendy boutiques.","location":"Le Marais, 75003 Paris"},{"time":"Afternoon","description":"Relax at a café and enjoy authentic French pastries.","location":"Café de Flore, 172 Boulevard Saint-Germain, 75006 Paris"},{"time":"Evening","description":"Attend a show at the Moulin Rouge.","location":"Moulin Rouge, 82 Boulevard de Clichy, 75018 Paris"}]}] │ null  │
 ```
-Sample Response:
 
 After submitting a request, the Worker returns a rich itinerary:
 
@@ -146,15 +145,15 @@ After submitting a request, the Worker returns a rich itinerary:
 
 ## Setup 
 
-### Prerequisites  
-- Install **Node 20 or later**:
+**1. Prerequisites**
+Install **Node 20 or later**:
 
 ```bash
 curl -fsSL https://fnm.vercel.app/install | bash
 source ~/.bashrc          # reload shell
 ```
 
-- Install **Wrangler CLI**:
+Install **Wrangler CLI**:
 
 ```bash
 npm i -g wrangler
@@ -162,7 +161,7 @@ npm i -g wrangler
 
 
 
-### Clone & Install  
+**Clone & Install**  
 ```bash
 git clone https://github.com/aragit/stak-itinerary-generator.git
 cd stak-itinerary-generator
@@ -171,7 +170,7 @@ npm install
 
 ---
 
-### Log In to Cloudflare  
+**Log In to Cloudflare**  
 ```bash
 wrangler login
 ```
@@ -179,15 +178,15 @@ A browser window will open—log in once.
 
 
 
-### Store the OpenAI Key  
+**Store the OpenAI Key**  
 ```bash
 wrangler secret put OPENAI_API_KEY
 ```
-Paste your **OpenAI API key** when prompted.
+Paste your OpenAI API key when prompted.
 
 
 
-### Verify or Create the D1 Database  
+**Verify or Create the D1 Database**  
 ```bash
 wrangler d1 list
 ```
@@ -197,7 +196,7 @@ If `stak_itinerary` is **not listed**, create it:
 wrangler d1 create stak_itinerary
 ```
 
-Apply the schema:
+**Apply the schema:**
 
 ```bash
 wrangler d1 execute stak_itinerary --file=migrations/0001_init.sql
@@ -205,7 +204,7 @@ wrangler d1 execute stak_itinerary --file=migrations/0001_init.sql
 
 
 
-### Deploy  
+**Deploy**  
 ```bash
 wrangler deploy
 ```
@@ -215,7 +214,7 @@ The CLI prints the live **Worker URL**:
 https://<unique-subdomain>.workers.dev
 ```
 
-### Quick Test  
+**Quick Test**  
 ```bash
 curl -X POST https://<unique-subdomain>.workers.dev \
   -H "Content-Type: application/json" \
@@ -235,7 +234,7 @@ wrangler d1 execute stak_itinerary --remote \
   --command="SELECT * FROM itineraries WHERE jobId='a1b2c3d4-...';"
 ```
 
-Done! Your API is live and ready.
+**Done! Your API is live and ready.**
 
 
 ## Architecture Deep Dive
