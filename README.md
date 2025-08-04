@@ -350,7 +350,7 @@ This high-level overview of the Cloudflare Workers & Pages dashboard provides a 
 
 ![Workers Overview](./docs/Workers.png)
 
-
+    
 **2. Metrics:** 
 
 This section shows the key performance indicators for the deployed Worker. The metrics graphs confirm that the worker is active and processing requests. The screenshots were taken after successfully sending POST requests to the API.
@@ -361,11 +361,12 @@ This section shows the key performance indicators for the deployed Worker. The m
 
 - CPU Time & Request Duration: These metrics demonstrate the efficiency of the worker. A low CPU time and request duration, even with concurrent Subrequests, confirms that the worker is responding quickly (due to the asynchronous ctx.waitUntil pattern).
 
-
+   
 ![Metrics Overview](./docs/metric1.png)
 
 ![Metrics Overview2](./docs/metrics2.png)
 
+   
 **3. D1 Database:**
 
 In following snapshot the metrics shown here, such as the number of queries and the total size, shows that the worker is successfully connecting to the database and persisting the generated itineraries. This validates the data storage component of the application's architecture.
