@@ -341,12 +341,23 @@ No markdown, no explanations.
 
 --- 
 ## **Cloudflare Dashboard**
+To provide tangible overview that the Worker is correctly deployed, receiving requests, and performing its tasks, here are key snapshots from my Cloudflare dashboard.
+
 
 **Workers overview:** 
 ![Workers Overview](./docs/Workers.png)
 
 
 **Metrics:** 
+This section shows the key performance indicators for the deployed Worker. The metrics graphs confirm that the worker is active and processing requests. The screenshots were taken after successfully sending POST requests to the API.
+
+- Requests: This graph tracks the total number of HTTP requests your worker has handled. A rising number here confirms that the API endpoint is being successfully called.
+
+- Subrequests: This metric is crucial for this project, as it tracks the outbound calls made by your worker. The subrequests shown here represent the asynchronous calls to the OpenAI GPT-4o-mini API and the D1 database.
+
+- CPU Time & Request Duration: These metrics demonstrate the efficiency of the worker. A low CPU time and request duration, even with concurrent Subrequests, confirms that the worker is responding quickly (due to the asynchronous ctx.waitUntil pattern).
+
+
 ![Metrics Overview](./docs/metric1.png)
 
 ![Metrics Overview2](./docs/metrics2.png)
