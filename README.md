@@ -278,15 +278,15 @@ sequenceDiagram
 ### Storage Schema (D1)
 
 ```sql
-CREATE TABLE itineraries (
-  jobId         TEXT PRIMARY KEY,
-  status        TEXT CHECK(status IN ('processing','completed','failed')) NOT NULL,
-  destination   TEXT NOT NULL,
-  durationDays  INTEGER NOT NULL,
-  itinerary     TEXT,                 -- JSON
-  error         TEXT,
-  createdAt     INTEGER,              -- epoch ms
-  completedAt   INTEGER
+CREATE TABLE IF NOT EXISTS itineraries (
+  jobId        TEXT PRIMARY KEY,
+  status       TEXT CHECK (status IN ('processing', 'completed', 'failed')) NOT NULL,
+  destination  TEXT NOT NULL,
+  durationDays INTEGER NOT NULL,
+  itinerary    TEXT,                 -- JSON string
+  createdAt    INTEGER,
+  completedAt  INTEGER,
+  error        TEXT                  -- ← here
 );
 ```
 
