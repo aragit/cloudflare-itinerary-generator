@@ -10,6 +10,8 @@ Key experience:
 - **Stateless & durable**: results are persisted in Cloudflare D1 (serverless SQLite).
 - **Zero infrastructure**: scales from 1 to 1 000 000 calls without extra config.
 
+  ![cgn Overview](./docs/CGN.png)
+
 ### **Architecture of Cloudflare Workers**
 
 - **Elasticity**: Cloudflare's platform is designed to automatically and instantly scale up the number of running Worker instances in response to traffic. It doesn't use a fixed number of servers. Instead, when a request arrives, if a worker instance is not available, Cloudflare's platform spins one up almost instantly.
