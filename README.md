@@ -27,10 +27,10 @@ This is the core value proposition of a serverless platform. The "1 to 1,000,000
 ### Table of Contents
 - [Quick Start Command Sheet](#quick-start-command-sheet)
 - [How to Test the Live API](#a-curl-example-of-how-to-call-api-endpoint)
-- Setup Instructions
+- [Setup Instructions](#setuo-instruction)
 - [Architecture](#architecture)
-- Prompt Engineering
-- Cloudflare Dashboard
+- [Prompt Engineering](#prompt-engineering)
+- [Cloudflare Dashboard](#cloudflare-dashboard)
 
 
 Technologies Used
@@ -54,7 +54,7 @@ curl -X POST https://<worker>.workers.dev \
 
    ```
 
-### A cURL example of how to call  API endpoint**
+### A cURL example of how to call  API endpoint
 ```bash
 curl -X POST "https://stak2.stak-d1-demo.workers.dev/" \
      -H "Content-Type: application/json" \
