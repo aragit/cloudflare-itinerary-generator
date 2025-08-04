@@ -21,11 +21,12 @@ Key experience:
 - **Zero Configuration**: As the developer, you don't need to do anything to enable this scaling. You don't manage servers, load balancers, or virtual machines. The platform handles all of that automatically.
 
 This is the core value proposition of a serverless platform. The "1 to 1,000,000 calls" promise is essentially the platform's guarantee.
+
 ---
 
 ### Table of Contents
-- Quick Start Command Sheet
-- How to Test the Live API
+- [Quick Start Command Sheet](#quick-start-command-sheet)
+- [How to Test the Live API](#a-curl-example-of-how-to-call-api-endpoint)
 - Setup Instructions
 - [Architecture](#architecture)
 - Prompt Engineering
@@ -53,13 +54,13 @@ curl -X POST https://<worker>.workers.dev \
 
    ```
 
-**A cURL example of how to call  API endpoint**
+### A cURL example of how to call  API endpoint**
 ```bash
 curl -X POST "https://stak2.stak-d1-demo.workers.dev/" \
      -H "Content-Type: application/json" \
      -d '{"destination": "Paris, France", "durationDays": 3}'
 ```
-**output** :
+**Expected Output** :
 ```text
 {"jobId":"f436b6f3-e109-4370-a0d6-8279f78f1e4f"}
 ```
@@ -72,7 +73,7 @@ Retrieves the single itinerary record for the given job, showing status, JSON pl
 
 
 
-**Response** :
+**Expected Response** :
 ```text
 ⛅️ wrangler 4.27.0
 ───────────────────
