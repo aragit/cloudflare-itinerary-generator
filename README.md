@@ -344,11 +344,15 @@ No markdown, no explanations.
 To provide tangible overview that the Worker is correctly deployed, receiving requests, and performing its tasks, here are key snapshots from my Cloudflare dashboard.
 
 
-**Workers overview:** 
+**1. Workers overview:** 
+
+This high-level overview of the Cloudflare Workers & Pages dashboard provides a quick summary of the deployed serverless applications. The screenshot shows the stak2 worker is active, has recently handled requests, and is correctly bound to a D1 Database. This confirms that the worker is a live, functional microservice within the Cloudflare ecosystem.
+
 ![Workers Overview](./docs/Workers.png)
 
 
-**Metrics:** 
+**2. Metrics:** 
+
 This section shows the key performance indicators for the deployed Worker. The metrics graphs confirm that the worker is active and processing requests. The screenshots were taken after successfully sending POST requests to the API.
 
 - Requests: This graph tracks the total number of HTTP requests your worker has handled. A rising number here confirms that the API endpoint is being successfully called.
@@ -362,7 +366,9 @@ This section shows the key performance indicators for the deployed Worker. The m
 
 ![Metrics Overview2](./docs/metrics2.png)
 
-**D1 Database:**
+**3. D1 Database:**
+
+In following snapshot the metrics shown here, such as the number of queries and the total size, shows that the worker is successfully connecting to the database and persisting the generated itineraries. This validates the data storage component of the application's architecture.
 ![d1 Overview](./docs/D1.png)
 
 
